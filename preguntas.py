@@ -102,8 +102,16 @@ def pregunta_05():
     D    7
     E    9
     Name: _c2, dtype: int64
+
     """
-    return
+    import pandas as pd
+    import numpy as np
+    pd.set_option("display.notebook_repr_html", False)
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.groupby("_c1").agg({"_c2": np.max})
+    #print(x)
+    return x
 
 
 def pregunta_06():
@@ -131,7 +139,14 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    import pandas as pd
+    import numpy as np
+    pd.set_option("display.notebook_repr_html", False)
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.groupby("_c1")['_c2'].agg([sum])
+
+    return x
 
 
 def pregunta_08():
@@ -149,7 +164,14 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    import pandas as pd
+    import numpy as np
+    pd.set_option("display.notebook_repr_html", False)
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.assign(suma=tbl0._c0 + tbl0._c2)
+
+    return x
 
 
 def pregunta_09():
@@ -167,7 +189,15 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    import pandas as pd
+    import numpy as np
+    import datetime
+    pd.set_option("display.notebook_repr_html", False)
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.assign(year=pd.DatetimeIndex(tbl0['_c3']).year)
+    print(x)
+    return x
 
 
 def pregunta_10():
