@@ -22,7 +22,12 @@ def pregunta_01():
     40
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = len(tbl0)
+    
+    return x
 
 
 def pregunta_02():
@@ -33,7 +38,12 @@ def pregunta_02():
     4
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.shape[1]
+    
+    return x
 
 
 def pregunta_03():
@@ -50,7 +60,11 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.groupby("_c1").size()
+    return x
 
 
 def pregunta_04():
@@ -65,7 +79,14 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+
+    import pandas as pd
+    import numpy as np
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    x = tbl0.groupby('_c1').agg({'_c2': np.mean})
+    x = x.style.format('{:.6f}')
+    return x
 
 
 def pregunta_05():
