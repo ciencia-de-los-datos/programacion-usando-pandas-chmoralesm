@@ -123,7 +123,12 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    import pandas as pd
+
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    x = sorted([i.upper() for i in list(tbl1["_c4"].unique())])
+    return x
+    
 
 
 def pregunta_07():
@@ -214,7 +219,9 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    data = tbl0.groupby(['_c1']).agg({'_c2': lambda x: ":".join(map(str,sorted(list(x))))})
+    return data
 
 
 def pregunta_11():
@@ -233,7 +240,14 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+    data = tbl1.groupby(['_c0']).agg({'_c4': lambda x: ",".join(sorted(list(x)))}).reset_index()
+    return data
+
 
 
 def pregunta_12():
@@ -251,7 +265,17 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    data = pd.merge(tbl0,tbl2,left_on="_c0",right_on="_c0")
+    columnas = ['_c5a','_c5b']
+    data['_c5'] = data[columnas].apply(lambda row: ':'.join(row.values.astype(str)), axis=1)
+    data = data.groupby(['_c0']).agg({'_c5':lambda x: ",".join(sorted(list(x)))}).reset_index()
+    return data
 
 
 def pregunta_13():
@@ -268,4 +292,14 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    import pandas as pd
+
+    tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
+    tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
+    tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
+
+    data = pd.merge(tbl0,tbl2,left_on="_c0",right_on="_c0")
+    suma = data.groupby("_c1")["_c5b"].sum()
+    return suma
+    
+    
